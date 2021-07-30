@@ -1,22 +1,6 @@
+
+
 /*
-
-BEFORE
-
-console.log('Before');
-const user = getUser(1);
-console.log(user);
-console.log('After');
-
-function getUser(id) {
-    setTimeout(() => {
-        console.log('Reading the user from database...');
-        return { id: id, gitHubUsername: 'nuwan' }
-    }, 4000)
-}
-*/
-
-
-//AFTER
 console.log('Before');
 const user = getUser(1, displayUser);
 
@@ -32,8 +16,13 @@ function displayRepos(repos) {
 function displayCommits(commits) {
     console.log(commits);
 }
+*/
 
-
+getUser(1)
+    .then(user => gerRepositories(user.gitHubUsername))
+    .then(repos => getCommits(repos[0]))
+    .then(commit => console.log('Commit: ', commit))
+    .catch(err => console.log('Error: ', err.message))
 
 
 
@@ -52,7 +41,7 @@ function getUser(id) {
 
 function gerRepositories(username) {
 
-    console.log('Calling Github API...');
+    console.log('Calling Github API... for repos');
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(['repo1', 'repo2', 'repo3', 'repo4'])
@@ -62,7 +51,7 @@ function gerRepositories(username) {
 }
 
 function getCommits(repo) {
-    console.log('Calling Github API...');
+    console.log('Calling Github API...for commit');
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(['commit'])
